@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import axios from "axios";
 import ContentImg from "./content-img.jsx";
 import moment from "moment";
-import {Button} from "antd";
+import { Button } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 class WorldDiary extends Component {
   state = {
@@ -34,30 +34,30 @@ class WorldDiary extends Component {
 
   follow = (id) => {
     axios({
-        url: "/api/user/follow/follow",
-        method: "post",
-        params: {
-          user_id: 1,
-          following_id:id
-        },
-      }).then((res) => {
-        console.log("post/follow/follow")
-      });
-      
-      const arr = this.state.WorldDiaryList.map((ele) => {
-        if (ele.user_id === id) {
-          var follow = ele.followed;
+      url: "/api/user/follow/follow",
+      method: "post",
+      params: {
+        user_id: 1,
+        following_id: id,
+      },
+    }).then((res) => {
+      console.log("post/follow/follow");
+    });
 
-          return { ...ele, followed: !follow, };
-        }
-        return { ...ele };
-      });
-      this.setState({ WorldDiaryList: arr });
+    const arr = this.state.WorldDiaryList.map((ele) => {
+      if (ele.user_id === id) {
+        var follow = ele.followed;
+
+        return { ...ele, followed: !follow };
+      }
+      return { ...ele };
+    });
+    this.setState({ WorldDiaryList: arr });
   };
 
   _renderHeadView(data) {
     //console.log(data)
-    var follow = "follow"
+    var follow = "follow";
     return (
       <div className="item">
         <div className="topRightView">
@@ -65,13 +65,19 @@ class WorldDiary extends Component {
             <div style={{ marginright: "10px" }}>
               <img className="nick-img" src={data.user_profile} />
               <span style={{ marginLeft: "10px" }}>{data.nickname}</span>
-            
-              <Button style={{ marginLeft: "10px" }} type="primary" onClick={()=>this.follow(data.user_id)}>follow</Button>
+
+              <Button
+                style={{ marginLeft: "10px" }}
+                type="primary"
+                onClick={() => this.follow(data.user_id)}
+              >
+                follow
+              </Button>
               {data.followed && <CheckOutlined />}
             </div>
             {/* <div style={{marginLeft:"600px"}}>{data.sendTime}</div> */}
             <div style={{ marginLeft: "600px" }}>
-              {moment(data.db_time*1000).format("YYYY-MM-DD HH:mm:ss")}
+              {moment(data.db_time * 1000).format("YYYY-MM-DD HH:mm:ss")}
             </div>
           </div>
           <div>
@@ -97,15 +103,13 @@ class WorldDiary extends Component {
     const arr = this.state.WorldDiaryList.map((ele) => {
       if (ele.diary_id === id) {
         var isshow = ele.isShowComment;
-        return { ...ele, isShowComment: !isshow};
+        return { ...ele, isShowComment: !isshow };
       }
       return { ...ele };
     });
     //this.props.update(arr);
     //传给后端新评论
     this.setState({ WorldDiaryList: arr });
-    
-
   };
 
   transferdata = (id) => {
@@ -169,16 +173,17 @@ class WorldDiary extends Component {
     var content;
     const arr = this.state.WorldDiaryList.map((ele) => {
       if (ele.diary_id === id) {
-        
-            var commentlist = [
-                ...ele.comment_list,
-                {
-                  nickname: name,
-                  content: ele.inputValue,
-                },
-                
-              ]
-        
+        if (ele.comment_count === 0) {
+          var commentlist = [{ nickname: name, content: ele.inputValue },];
+        } else {
+          var commentlist = [
+            ...ele.comment_list,
+            {
+              nickname: name,
+              content: ele.inputValue,
+            },
+          ];
+        }
         content = ele.inputValue;
         return {
           ...ele,
@@ -187,23 +192,21 @@ class WorldDiary extends Component {
           comment_count: number + 1,
         };
       }
-      
+
       return { ...ele };
     });
     //this.props.update(arr)
-    
+
     this.setState({ WorldDiaryList: arr });
     axios({
-        url: "/api/diary/comment",
-        method: "post",
-        params: {
-          user_id: 1,
-          diary_id: id,
-          content: content, 
-        },
-      }).then((res) => {
-        
-      });
+      url: "/api/diary/comment",
+      method: "post",
+      params: {
+        user_id: 1,
+        diary_id: id,
+        content: content,
+      },
+    }).then((res) => { });
   };
 
   render() {
@@ -246,7 +249,7 @@ class WorldDiary extends Component {
                   </li>
                 </ul>
 
-                {ele.isTransfer &&  (
+                {ele.isTransfer && (
                   <div>
                     <input
                       style={{ width: "500px" }}
@@ -287,7 +290,8 @@ class WorldDiary extends Component {
                     </button>
                   </div>
                 )}
-                {ele.isShowComment && !(ele.comment_count===0) &&
+                {ele.isShowComment &&
+                  !(ele.comment_count === 0) &&
                   ele.comment_list.map((subEle, subIndex) => {
                     return (
                       <div key={subIndex}>

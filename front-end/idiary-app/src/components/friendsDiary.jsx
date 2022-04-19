@@ -135,7 +135,7 @@ class FriendsDiary extends Component {
     const arr = this.state.FriendsDiaryList.map((ele) => {
       if (ele.diary_id === id) {
         if (ele.comment_count === 0){
-            var commentlist = [{nickname: name, content: ele.inputValue,}]
+            var commentlist = [{nickname: name, content: ele.inputValue,},]
         }else{
             var commentlist = [
                 ...ele.comment_list,

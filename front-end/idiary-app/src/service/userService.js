@@ -1,8 +1,8 @@
 import http from "./httpService";
 
-const apiEndpoint = "http://localhost:8080/user/login";
+const apiEndpoint = "http://120.78.134.104:8080/user/login";
 export function register(user) {
-  return http.post("http://localhost:8080/user/register", {
+  return http.post("http://120.78.134.104:8080/user/register", {
     email: user.email,
     verification_code: user.verification,
     password: user.password,
@@ -11,7 +11,7 @@ export function register(user) {
 }
 
 export function login(user) {
-  const apiUrl = `http://localhost:8080/user/login`;
+  const apiUrl = `http://120.78.134.104:8080/user/login`;
   return http.post(apiUrl, {
     password: user.password,
     email: user.email,
@@ -19,7 +19,7 @@ export function login(user) {
 }
 
 export function send_email(user) {
-  return http.post("http://localhost:8080/email/verificationCode", {
+  return http.post("http://120.78.134.104:8080/email/verificationCode", {
     email: user.email,
   });
 }
@@ -34,14 +34,20 @@ export function send_problem(user) {
 }
 
 export function resetpassword(user) {
-  return http.post("http://localhost:8080/user/modifyPassword", {
+  return http.post("http://120.78.134.104:8080/user/modifyPassword", {
     email: user.email,
     new_password: user.password,
   });
 }
 
 export function getallinfo(user) {
-  return http.post("http://localhost:8080/user/getAllUserInfo", {
+  return http.post("http://120.78.134.104:8080/user/getAllUserInfo", {
+    email: user,
+  });
+}
+
+export function getinfobyemail(user) {
+  return http.post("http://120.78.134.104:8080/user/getUserInfo", {
     email: user,
   });
 }

@@ -6,7 +6,7 @@ const Tab = () => {
     <ul className="nav nav-tabs justify-content-center">
       <li className="nav-item">
         <NavLink
-          className="nav-link"
+          className="nav-link active"
           aria-current="page"
           to="/idiary/myDiary/personalDiary"
         >
