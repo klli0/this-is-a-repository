@@ -290,7 +290,7 @@ class RegisterForm extends Component {
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="staticBackdropLabel">
-                        Modal title
+                        IDiary Agreement
                       </h5>
                       <button
                         type="button"
@@ -299,7 +299,36 @@ class RegisterForm extends Component {
                         aria-label="Close"
                       ></button>
                     </div>
-                    <div class="modal-body">...</div>
+                    <div class="modal-body">
+                      <p>Welcome to iDiary.</p>
+                      <p>
+                        Please read the following terms carefully. If you
+                        disagree with any terms of this agreement, you can
+                        choose not to enter iDiary. When you register
+                        successfully, whether you enter iDiary or publish any
+                        content on iDiary (i.e. "content"), it means that you
+                        (i.e. "user") fully accept all terms and conditions
+                        under this agreement.
+                      </p>
+                      <p>
+                        1.After successful registration, each user will be given
+                        a user account and corresponding password, which shall
+                        be kept by the user; Users shall be legally responsible
+                        for all activities and events carried out with their
+                        user account.
+                      </p>
+                      <p>
+                        2.Users shall be fully responsible for the authenticity,
+                        legality and effectiveness of the registration
+                        information they know, and users shall not pretend to be
+                        others; Do not release any information in the name of
+                        others; Do not maliciously use the registered account to
+                        cause other users to misunderstand; Otherwise, Zhihu has
+                        the right to immediately stop providing services,
+                        withdraw its account number, and the user shall bear all
+                        legal liabilities arising therefrom.
+                      </p>
+                    </div>
                     <div class="modal-footer">
                       <button
                         type="button"
