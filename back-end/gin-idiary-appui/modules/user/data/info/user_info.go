@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-04-17 14:12:20
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-04-18 21:58:21
+ * @LastEditTime: 2022-04-22 20:33:56
  * @Description: file content
  */
 /*
@@ -36,6 +36,15 @@ func BatchGetUserInfo(ctx context.Context, userIDs []int64) ([]infoModel.UserInf
 	}
 
 	return userInfos, nil
+}
+
+func GetUserInfoByUserID(ctx context.Context, userID int64) (infoModel.UserInfo, error) {
+	info, err := infoDao.GetUserInfoByUserID(ctx, userID)
+	if err != nil {
+		return infoModel.UserInfo{}, err
+	}
+
+	return info, nil
 }
 
 func GetUserInfoByEmail(ctx context.Context, email string) (infoModel.UserInfo, error) {
