@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-04-12 10:45:14
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-04-17 14:13:34
+ * @LastEditTime: 2022-04-23 00:32:48
  * @Description: file content
  */
 package follow
@@ -16,7 +16,7 @@ import (
 )
 
 func Follow(ctx *gin.Context) {
-	inputs, hasError := getAddFriendPars(ctx)
+	inputs, hasError := getFollowPars(ctx)
 	if hasError {
 		response.StdInvalidParams(ctx)
 		return
@@ -29,7 +29,7 @@ func Follow(ctx *gin.Context) {
 	response.StdSuccess(ctx)
 }
 
-func getAddFriendPars(ctx *gin.Context) (followModel.FollowPars, bool) {
+func getFollowPars(ctx *gin.Context) (followModel.FollowPars, bool) {
 	var inputs followModel.FollowPars
 	err := ctx.ShouldBind(&inputs)
 	if err != nil {

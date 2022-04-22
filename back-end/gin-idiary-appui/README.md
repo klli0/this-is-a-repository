@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-03-03 15:20:51
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-04-22 20:58:20
+ * @LastEditTime: 2022-04-23 00:42:22
  * @Description: README
 -->
 # gin-idiary-appui
@@ -365,6 +365,12 @@ eg
     "errno": 0,
     "errmsg": "Success"
 }
+
+{
+    "data": "邮箱已经注册过",
+    "errmsg": "Failure",
+    "errno": -1
+}
 ```
 
 post: /user/follow/follow
@@ -375,6 +381,7 @@ a user wants to follow somebody
 | --------- | --------- | --------- |
 |user_id|user ID|yes|
 |following_id|the man who's gonna be followed|yes|
+|should_unfollow|int: default 0. if user wants to follow somebody, set 0; or if wants to unfollow, set 1|no|
 
 |returnParams|comment|require|
 | --------- | --------- | --------- |
@@ -386,6 +393,18 @@ eg
     "errno": 0,
     "errmsg": "Success"
 }
+
+{
+    "data": "已经关注过了",
+    "errmsg": "Failure",
+    "errno": -1
+}
+
+{
+    "data": "已经取关过了",
+    "errmsg": "Failure",
+    "errno": -1
+}
 ```
 
 get: /user/follow/followings
@@ -394,7 +413,7 @@ a user's following list
 
 |getParams|comment|require|
 | --------- | --------- | --------- |
-|user_id|user ID|yes|
+|user_id|int64|yes|
 
 |returnParams|comment|require|
 | --------- | --------- | --------- |
@@ -405,11 +424,18 @@ eg
 ```bash
 {
     "data": {
-        "followings": [1, 2, 3],
-        "count":     3
+        "count": 1,
+        "followings": [
+            {
+                "user_id": 1,
+                "email": "118010160@link.cuhk.edu.cn",
+                "nickname": "liziwei01",
+                "profile": "http://idiary-image.oss-cn-shenzhen.aliyuncs.com/?Expires=1650645030&OSSAccessKeyId=LTAI5tFEUnHRu5htgFXyKjz7&Signature=FIv78oyr3XHYLWd3PbwVs416xN8%3D"
+            }
+        ]
     },
-    "errno": 0,
-    "errmsg": "Success"
+    "errmsg": "Success",
+    "errno": 0
 }
 ```
 
@@ -419,7 +445,7 @@ a user's follower list
 
 |getParams|comment|require|
 | --------- | --------- | --------- |
-|user_id|user ID|yes|
+|user_id|int64|yes|
 
 |returnParams|comment|require|
 | --------- | --------- | --------- |
@@ -429,12 +455,20 @@ a user's follower list
 eg
 ```bash
 {
+{
     "data": {
-        "followers": [1, 2, 3],
-        "count":     3
+        "count": 1,
+        "followers": [
+            {
+                "user_id": 2,
+                "email": "alssylk@gmail.com",
+                "nickname": "liziwei02",
+                "profile": "http://idiary-image.oss-cn-shenzhen.aliyuncs.com/?Expires=1650645030&OSSAccessKeyId=LTAI5tFEUnHRu5htgFXyKjz7&Signature=FIv78oyr3XHYLWd3PbwVs416xN8%3D"
+            }
+        ]
     },
-    "errno": 0,
-    "errmsg": "Success"
+    "errmsg": "Success",
+    "errno": 0
 }
 ```
 

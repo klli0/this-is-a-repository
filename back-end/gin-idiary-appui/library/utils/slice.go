@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-03-03 19:52:07
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-04-16 21:26:23
+ * @LastEditTime: 2022-04-23 00:39:03
  * @Description: 切片工具
  */
 package utils
@@ -115,9 +115,13 @@ func (u *USlice) Pos(ele interface{}, sptr interface{}, beg ...int) int {
 	return -1
 }
 
+func (u *USlice) Remove(sptr interface{}, ele interface{}) error {
+	return u.RemoveAt(sptr, u.Pos(ele, sptr))
+}
+
 // 删除Slice中特定位置i的元素.
 // sptr: 切片指针.
-func (u *USlice) Remove(sptr interface{}, idx int) error {
+func (u *USlice) RemoveAt(sptr interface{}, idx int) error {
 	if ps, ok := sptr.(*[]bool); ok {
 		*ps = append((*ps)[:idx], (*ps)[idx+1:]...)
 	} else if ps, ok := sptr.(*[]uint); ok {
