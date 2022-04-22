@@ -11,7 +11,8 @@ import * as userService from "../service/userService";
 class WorldDiary extends Component {
   state = {
     WorldDiaryList: [],
-    user_id:null,
+    user_id: null,
+    user_name: null
   };
 
   componentDidMount = async () => {
@@ -22,7 +23,8 @@ class WorldDiary extends Component {
     const user = auth.getCurrentUser();
     const response = await userService.getinfobyemail(user);
     const user_id = response.data.data.user_id;
-    this.setState({ user_id });
+    const user_name = response.data.data.nickname;
+    this.setState({ user_id, user_name });
 
     axios({
       url: "/api/diary/world",
@@ -185,12 +187,12 @@ class WorldDiary extends Component {
     const arr = this.state.WorldDiaryList.map((ele) => {
       if (ele.diary_id === id) {
         if (ele.comment_count === 0) {
-          var commentlist = [{ nickname: this.state.nickname, content: ele.inputValue },];
+          var commentlist = [{ nickname: this.state.user_name, content: ele.inputValue },];
         } else {
           var commentlist = [
             ...ele.comment_list,
             {
-              nickname: name,
+              nickname: this.state.user_name,
               content: ele.inputValue,
             },
           ];
