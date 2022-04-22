@@ -9,6 +9,9 @@ import Pagination from "./common/pagination.jsx";
 import _ from "lodash";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listgroup.jsx";
+import auth from "../service/authService";
+import * as userService from "../service/userService";
+
 var dataList = [
   {
     myUrl: onePic,
@@ -184,16 +187,22 @@ class personalDiary extends React.Component {
     pageSize: 4,
     selectedPrivacy: null,
     sortColumn: { path: "sendTime", order: "asc" },
+    user_id:null,
   };
 
-  componentDidMount() {
-    console.log("personnal Diary===");
+  componentDidMount = async () => {
+    //console.log("personnal Diary===");
+    const user = auth.getCurrentUser();
+    const response = await userService.getinfobyemail(user);
+    const user_id = response.data.data.user_id;
+    this.setState({ user_id });
+
 
     axios({
       url: "/api/diary/mine",
       method: "get",
       params: {
-        user_id: 1,
+        user_id: this.state.user_id,
       },
     }).then((res) => {
       console.log(res);

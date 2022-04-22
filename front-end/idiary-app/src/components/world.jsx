@@ -4,21 +4,31 @@ import ContentImg from "./content-img.jsx";
 import moment from "moment";
 import { Button } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
+import auth from "../service/authService";
+import * as userService from "../service/userService";
+
+
 class WorldDiary extends Component {
   state = {
     WorldDiaryList: [],
+    user_id:null,
   };
 
-  componentDidMount() {
+  componentDidMount = async () => {
     // console.log("WorldDiary====WorldDiary");
 
     // 上传 : /diary/world
+    
+    const user = auth.getCurrentUser();
+    const response = await userService.getinfobyemail(user);
+    const user_id = response.data.data.user_id;
+    this.setState({ user_id });
 
     axios({
       url: "/api/diary/world",
       method: "get",
       params: {
-        user_id: 1,
+        user_id: this.state.user_id,
       },
     }).then((res) => {
       console.log(res);
@@ -33,11 +43,12 @@ class WorldDiary extends Component {
   }
 
   follow = (id) => {
+
     axios({
       url: "/api/user/follow/follow",
       method: "post",
       params: {
-        user_id: 1,
+        user_id: this.state.user_id,
         following_id: id,
       },
     }).then((res) => {
@@ -202,7 +213,7 @@ class WorldDiary extends Component {
       url: "/api/diary/comment",
       method: "post",
       params: {
-        user_id: 1,
+        user_id: this.state.user_id,
         diary_id: id,
         content: content,
       },

@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from "react";
 import ContentImg from "./content-img.jsx";
 import "../css/listWb.css";
 import moment from "moment";
+import auth from "../service/authService";
+import * as userService from "../service/userService";
+
+
 export default class WeiBoList extends Component {
   constructor(props) {
     super(props);

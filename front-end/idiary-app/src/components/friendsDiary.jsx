@@ -2,21 +2,27 @@ import React, { Component, PropTypes } from "react";
 import axios from "axios";
 import ContentImg from "./content-img.jsx";
 import moment from "moment";
+import auth from "../service/authService";
+import * as userService from "../service/userService";
 
 class FriendsDiary extends Component {
   state = {
     FriendsDiaryList: [],
+    user_id:null,
   };
 
-  componentDidMount() {
+  componentDidMount = async() => {
     // console.log("FriendsDiary====FriendsDiary");
-
+    const user = auth.getCurrentUser();
+    const response = await userService.getinfobyemail(user);
+    const user_id = response.data.data.user_id;
+    this.setState({ user_id });
 
     axios({
       url: "/api/diary/friend",
       method: "get",
       params: {
-        user_id: 1,
+        user_id: this.state.user_id,
       },
     }).then((res) => {
       console.log(res);
@@ -26,6 +32,8 @@ class FriendsDiary extends Component {
         });
       }
     });
+
+
   }
 
   _renderHeadView(data) {

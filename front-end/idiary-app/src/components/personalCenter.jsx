@@ -4,22 +4,31 @@ import { Upload, Button, message, Space } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
 import "../css/personalCenter.css"
+import auth from "../service/authService";
+import * as userService from "../service/userService";
+
 class PersonalCenter extends Component {
   state = {
     imageUrl: "",
     image_name: "",
     loading: false,
+    user_id: null,
   }
   handleClick = () => {
     localStorage.removeItem("token");
   };
   customRequest = async (obj) => {
+    const user = auth.getCurrentUser();
+    const response = await userService.getinfobyemail(user);
+    const user_id = response.data.data.user_id;
+    this.setState({ user_id });
+
     const { file, onSuccess, onError } = obj;
     const suffix = file.name.split(".").reverse()[0];
     // console.log(file, "==file");
     // console.log(suffix, "===suffix");
     const values = {
-      user_id: 1,
+      user_id: this.state.user_id,
       file,
     };
     const formData = new FormData();
@@ -46,7 +55,7 @@ class PersonalCenter extends Component {
       method: "post",
       url: `/api/user/modifyProfile`,
       params: {
-        user_id: 1,
+        user_id: this.state.user_id,
         user_profile: this.state.image_name,
       },
     }).then((res) => {
