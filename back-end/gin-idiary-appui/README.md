@@ -2,7 +2,7 @@
  * @Author: liziwei01
  * @Date: 2022-03-03 15:20:51
  * @LastEditors: liziwei01
- * @LastEditTime: 2022-04-22 20:54:01
+ * @LastEditTime: 2022-04-22 20:58:20
  * @Description: README
 -->
 # gin-idiary-appui
@@ -146,6 +146,7 @@ eg
                 "address": "",
                 "vote_count": 0,
                 "has_voted": false,
+                "has_followed": false,
                 "dislike_count": 0,
                 "share_count": 0,
                 "report_count": 0,
@@ -184,6 +185,7 @@ eg
                 "address": "",
                 "vote_count": 0,
                 "has_voted": false,
+                "has_followed": false,
                 "dislike_count": 0,
                 "share_count": 0,
                 "report_count": 0,
@@ -234,6 +236,7 @@ eg
                 "address": "",
                 "vote_count": 0,
                 "has_voted": false,
+                "has_followed": true,
                 "dislike_count": 0,
                 "share_count": 0,
                 "report_count": 0,
@@ -256,6 +259,7 @@ eg
                 "address": "",
                 "vote_count": 0,
                 "has_voted": false,
+                "has_followed": true,
                 "dislike_count": 0,
                 "share_count": 0,
                 "report_count": 0,
@@ -301,6 +305,8 @@ eg
                 "authority": 0,
                 "address": "",
                 "vote_count": 0,
+                "has_voted": false,
+                "has_followed": true,
                 "dislike_count": 0,
                 "share_count": 0,
                 "report_count": 0,
