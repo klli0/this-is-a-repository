@@ -18,7 +18,7 @@ class WorldDiary extends Component {
     // console.log("WorldDiary====WorldDiary");
 
     // 上传 : /diary/world
-    
+
     const user = auth.getCurrentUser();
     const response = await userService.getinfobyemail(user);
     const user_id = response.data.data.user_id;
@@ -185,7 +185,7 @@ class WorldDiary extends Component {
     const arr = this.state.WorldDiaryList.map((ele) => {
       if (ele.diary_id === id) {
         if (ele.comment_count === 0) {
-          var commentlist = [{ nickname: name, content: ele.inputValue },];
+          var commentlist = [{ nickname: this.state.nickname, content: ele.inputValue },];
         } else {
           var commentlist = [
             ...ele.comment_list,
@@ -207,6 +207,8 @@ class WorldDiary extends Component {
       return { ...ele };
     });
     //this.props.update(arr)
+
+    console.log("comment", this.state.user_id)
 
     this.setState({ WorldDiaryList: arr });
     axios({
