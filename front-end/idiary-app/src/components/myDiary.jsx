@@ -28,6 +28,8 @@ export default class MyDiary extends Component {
     const response = await userService.getinfobyemail(user);
     const user_id = response.data.data.user_id;
     this.setState({ user_id });
+    console.log("personall");
+    console.log(this.state.user_id)
   };
   writeChange = (e) => {
     this.setState({
@@ -35,14 +37,19 @@ export default class MyDiary extends Component {
     });
   };
 
-  write = () => {
+  write = async () => {
     // 拿到后发送给服务端
+    const user = auth.getCurrentUser();
+    const response = await userService.getinfobyemail(user);
+    const user_id = response.data.data.user_id;
+    this.setState({ user_id });
+
     var t = new Date().getTime();
     axios({
       url: "/api/diary/addDiary",
       method: "post",
       params: {
-        user_id: 1,
+        user_id: this.state.user_id,
         content: this.state.writeVal,
         authority: this.state.diary_type,
         image_list: this.state.str_image_list,
@@ -161,9 +168,9 @@ export default class MyDiary extends Component {
                   value={this.state.diary_type}
                   onChange={this.handleChange}
                 >
-                  <option value="Public">Public</option>
-                  <option value="Protected">Protected</option>
-                  <option value="Private">Private</option>
+                  <option value="0">Public</option>
+                  <option value="1">Protected</option>
+                  <option value="2">Private</option>
                 </select>
               </div>
             </div>
